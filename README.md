@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+﻿````markdown
+# Recobro  Dashboard multi-tenant (Next.js)
 
-## Getting Started
+Proyecto de ejemplo para un dashboard SaaS multi-tenant construido con Next.js (App Router). Contiene separación clara entre componentes Server/Client, datos mock organizados por tenant y una pequeña capa de servicios/repositiorios.
 
-First, run the development server:
+## Instalación y ejecución
+
+1. Instalar dependencias:
+
+```bash
+npm install
+```
+
+2. Ejecutar en desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Ejecutar tets (si están configurados):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm test
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+----
 
-## Learn More
+**1. Decisiones técnicas clave**
 
-To learn more about Next.js, take a look at the following resources:
+- **Seperación de capas:** `domain` (modelos, lógica pura), `infrastructure` (repositiorios, mappers), `app` (rutas y components). Esto facilita sustituir mocks por una BD real.
+- **Patrón aplicado:** Domain vs Infrastructure (separación dominio / infraestructura) para aislar responsabilidades entre capas.
+- **Datos mock:** Array en memoria (`MockProjectRepository`) para simplicidad y fácil migración.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**2. Cómo resolviste el multi-tenant**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- El tenant se extrae de la URL mediante carpetas dinámicas (`/[tenant]/*`).
+- Todos los accesos a datos reciben `tenantId` y los repositorios filtran por ese campo para evitar mezclar datos entre tenants.
+- Los servicios validan pertenencia (por ejemplo, `getById(id, tenantId)` devuelve `null` si no coincide).
 
-## Deploy on Vercel
+**3. Cómo separaste Server / Client**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Server Components:** páginas y componentes que hacen fetching y renderizado inicial (resuelven tenant y obtienen datos desde servicios).
+- **Client Components:** componentes con interacciones (filtros, toggles, estados locales) marcados con "use client" y sin fetching directo.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**4. Qué mejorarías con más tiempo**
+
+- Añadir integración real con una base de datos (Postgres) y migraciones.
+- Implementar autenticación y autorización por tenant.
+- Añadir pruebas E2E y más tets unitarios para servicios y mappers.
+
+**5. Qué conscientemente dejaste fuera**
+
+- Persistencia real: datos son mock en memoria intencinalmente para simplificar el ejercicio.
+- No implementé autenticación ni gestión de usuarios por falta de alcance.
+- Diseño y estilos avanzados (se priorizó funcionalidad y arquitectura).
+- Test unitarios para la UI
+
