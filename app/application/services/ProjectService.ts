@@ -1,4 +1,3 @@
-// src/application/services/ProjectService.ts
 import { ProjectRepository } from "@/infrastructure/repositories/MockProjectRepository";
 import { ProjectMapper } from "@/infrastructure/mappers/ProjectMapper";
 import { ProjectFilter } from "@/domain/utils/filterProjects";
