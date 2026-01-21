@@ -3,6 +3,7 @@ import { Project } from "@/domain/models/Project";
 const MOCK_PROJECTS: Project[] = [
   { id: '1', name: 'Web Acme', status: 'active', tenantId: 'acme' },
   { id: '2', name: 'App Umbrella', status: 'active', tenantId: 'umbrella' },
+  { id: '3', name: 'Web Acme 2', status: 'active', tenantId: 'acme' },
 ];
 
 export class ProjectRepository {
