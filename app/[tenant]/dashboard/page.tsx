@@ -11,27 +11,16 @@ export default async function DashboardPage({
 
   return (
     <main className="p-8">
-      <h1 className="text-3xl font-bold mb-6">Dashboard - {tenant.toUpperCase()}</h1>
-      
-      <div className="bg-white shadow rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">Proyectos</h2>
-        
-        {projects.length === 0 ? (
-          <p className="text-gray-500">No hay proyectos disponibles</p>
-        ) : (
-          <ul className="space-y-2">
-            {projects.map((project) => (
-              <li key={project.id} className="border-b pb-2">
-                <Link 
-                  href={`/${tenant}/projects/${project.id}`}
-                  className="text-blue-600 hover:text-blue-800 hover:underline"
-                >
-                  {project.name} - <span className="text-gray-600">({project.status})</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+      <h1 className="text-3xl font-bold mb-6">{tenant.toUpperCase()}</h1>
+
+      <div className="bg-white shadow rounded-lg p-6 inline-block">
+        <p className="text-lg">Proyectos totales:</p>
+        <div className="mt-2 inline-flex items-center px-3 py-1 rounded-full text-lg font-medium bg-gray-100 text-gray-800">{projects.length}</div>
+        <div className="mt-4">
+          <Link href={`/${tenant}/projects`} className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Ver proyectos
+          </Link>
+        </div>
       </div>
     </main>
   );

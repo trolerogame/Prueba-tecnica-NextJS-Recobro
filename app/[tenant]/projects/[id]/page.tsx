@@ -8,7 +8,6 @@ export default async function ProjectDetailPage({
 }) {
   try {
     const { tenant, id } = await params;
-    console.log(tenant, id)
     const project = await ProjectService.getProjectDetail(tenant, id);
 
     return (
