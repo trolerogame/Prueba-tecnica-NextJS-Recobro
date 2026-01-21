@@ -1,5 +1,4 @@
-﻿````markdown
-# Recobro  Dashboard multi-tenant (Next.js)
+﻿# Recobro  Dashboard multi-tenant (Next.js)
 
 Proyecto de ejemplo para un dashboard SaaS multi-tenant construido con Next.js (App Router). Contiene separación clara entre componentes Server/Client, datos mock organizados por tenant y una pequeña capa de servicios/repositiorios.
 
